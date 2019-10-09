@@ -1,6 +1,12 @@
+require('dotenv').config()
+const { API_KEY, BASE_URL } = process.env
 
 export default {
   mode: 'universal',
+  env: {
+    API_KEY,
+    BASE_URL
+  },
   /*
   ** Headers of the page
   */
@@ -44,6 +50,7 @@ export default {
     'nuxt-buefy',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
     '@nuxtjs/pwa'
   ],
   /*

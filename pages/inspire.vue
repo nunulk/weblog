@@ -11,5 +11,33 @@
         Antério Vieira
       </a>
     </h3>
+    <ul>
+      <li v-for="page in pages" :key="page.id">
+        <div class="card">
+          <div class="card-header">
+            {{ page.title }}
+          </div>
+          <div class="card-content" v-html="page.content">
+            {{ page.content }}
+          </div>
+          <div class="card-footer">
+            {{ page.createdAt }}
+          </div>
+        </div>
+      </li>
+    </ul>
   </section>
 </template>
+
+<script>
+export default {
+  async asyncData ({ env, $axios }) {
+    try {
+      const response = await $axios.$get('weblogs', { baseURL: env.BASE_URL, headers: { 'X-API-KEY': env.API_KEY } })
+      return { pages: response.contents }
+    } catch (e) {
+      return { pages: [] }
+    }
+  }
+}
+</script>
