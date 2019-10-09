@@ -12,16 +12,21 @@
       </a>
     </h3>
     <ul>
-      <li v-for="page in pages" :key="page.id">
+      <li v-for="post in posts" :key="post.id">
         <div class="card">
           <div class="card-header">
-            {{ page.title }}
+            <div class="card-header-title">
+              {{ post.title }}
+            </div>
           </div>
-          <div class="card-content" v-html="page.content">
-            {{ page.content }}
+          <div class="card-content">
+            <div v-if="post.mainImage && post.mainImage.url">
+              <img :src="`${post.mainImage.url}?fit=fill&fill-color=fff&w=200&h=100`">
+            </div>
+            <div v-html="post.content"/>
           </div>
           <div class="card-footer">
-            {{ page.createdAt }}
+            <span class="has-text-right">created at {{ post.createdAt|formatDate }}</span>
           </div>
         </div>
       </li>
@@ -34,9 +39,9 @@ export default {
   async asyncData ({ env, $axios }) {
     try {
       const response = await $axios.$get('weblogs', { baseURL: env.BASE_URL, headers: { 'X-API-KEY': env.API_KEY } })
-      return { pages: response.contents }
+      return { posts: response.contents }
     } catch (e) {
-      return { pages: [] }
+      return { posts: [] }
     }
   }
 }
