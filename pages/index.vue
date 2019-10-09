@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <h2 class="title is-3 has-text-grey">
-      nunulk's blog
+      Posts
     </h2>
     <ul class="posts">
       <li v-for="post in posts" :key="post.id">
