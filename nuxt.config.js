@@ -11,7 +11,8 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || 'nunulk\'s blog',
+    title: 'nunulk\'s blog',
+    titleTemplate: '%s - nunulk\'s blog',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

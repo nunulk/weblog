@@ -8,14 +8,16 @@
         <div class="card">
           <div class="card-header">
             <div class="card-header-title">
-              {{ post.title }}
+              <nuxt-link :to="`/posts/${post.id}`">
+                {{ post.title }}
+              </nuxt-link>
             </div>
           </div>
           <div class="card-content">
             <div v-if="post.mainImage && post.mainImage.url">
               <img :src="`${post.mainImage.url}?fit=fill&fill-color=fff&w=200&h=100`">
             </div>
-            <div v-html="post.content"/>
+            <div v-html="post.content" />
           </div>
           <div class="card-footer">
             <div class="card-footer-item is-12 is-size-7 has-text-grey-light has-text-right">
@@ -30,6 +32,11 @@
 
 <script>
 export default {
+  head () {
+    return {
+      titleTemplate: ''
+    }
+  },
   async asyncData ({ env, $axios }) {
     try {
       const response = await $axios.$get('weblogs', { baseURL: env.BASE_URL, headers: { 'X-API-KEY': env.API_KEY } })
