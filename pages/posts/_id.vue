@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="isDraft" class="notification is-warning">
+      Draft
+    </div>
     <h3 class="title">{{ post.title }}</h3>
     <div v-html="post.content" />
   </div>
@@ -14,9 +17,12 @@ export default {
   },
   async asyncData ({ env, $axios, route, params, error }) {
     try {
-      const response = await $axios.$get(`weblogs/${params.id}`, { baseURL: env.BASE_URL, headers: { 'X-API-KEY': env.API_KEY } })
-      console.log('post', { route, params, response })
-      return { post: response }
+      console.log('post', { route, params })
+      const isDraft = !!route.query.draftKey
+      const url = isDraft ? `weblogs/${params.id}?draftKey=${route.query.draftKey}` : `weblogs/${params.id}`
+      const response = await $axios.$get(url, { baseURL: env.BASE_URL, headers: { 'X-API-KEY': env.API_KEY } })
+      console.log('post', { response })
+      return { post: response, isDraft }
     } catch (e) {
       console.log('error', { e })
       if (e.response.status === 404) {
