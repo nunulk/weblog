@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <section class="section">
     <div v-if="isDraft" class="notification is-warning">
       Draft
     </div>
-    <h3 class="title">{{ post.title }}</h3>
+    <h2 class="title">{{ post.title }}</h2>
     <div v-html="post.content" />
-  </div>
+  </section>
 </template>
 
 <script>
